@@ -5,7 +5,9 @@ var writeGraphviz=require("./lib/graphvizWriter.js");
 
 reader()
 	.then(makeDb)
-	.then(writeGraphviz)
+	.then(writeGraphviz({
+		drawItemNodes: true
+	}))
 	.then(function(gv) {
 		console.log(gv);
 	})

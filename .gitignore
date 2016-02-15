@@ -1,5 +1,5 @@
 xmlfiles/*.xml
 xmlfiles/*.meta
-graph.dot
-graph.png
+*.dot
+*.png
 node_modules
