@@ -3,3 +3,5 @@ xmlfiles/*.meta
 *.dot
 *.png
 node_modules
+html/
+xmlfiles/GenericAutoCrafter/
