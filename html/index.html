@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="fortressCraftBrowserApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="fortressCraftBrowserApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="fortressCraftBrowserApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="fortressCraftBrowserApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>FortressCraft Browser</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+
+<body ng-controller="appController">
+	<div class="col-sm-3 searchPanel pageHeight">
+		<div ng-controller="searchController" class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Search</h3>
+				</div>
+			 <div class="panel-body">
+				<input type="text" ng-change="runSearch(searchTerm)" ng-model="search.term" placeholder="Search Term">
+				<br>
+				<label><input type="checkbox" ng-model="search.recipes">Recipes</label>
+				<label><input type="checkbox" ng-model="search.research">Research</label>
+				<label><input type="checkbox" ng-model="search.terrain">Terrain</label>
+				<br>
+				<button ng-click="runSearch('Laser Energy Transmitter')">LET</button>
+				<p>{{resultsMessage}}</p>
+				<div class="searchResultsArea pageHeight">
+					<div>
+						<div ng-repeat="r in recipes">
+							<a href="#{{r._id}}" ng-click="setSelected(r)" data-toggle="tooltip" data-placement="right" title="{{r.description}}">{{r.displayName}} <type-badge item="r"></type-badge></a>
+							<!--p>{{r.Description}}</p-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-sm-9" ng-if="selectedItem">
+		<div class="row">
+			<h1>{{selectedItem.displayName}}<small><type-badge item="selectedItem"></type-badge><tag-badge item="selectedItem"></tag-badge></small></h1>
+
+		</div>
+		<div class="row">
+			<div class="col-sm-4 inputColumn">
+				<optional-section-group title="Creation">
+					<optional-section title="Research Point Cost: " ng-if="selectedItem.ResearchCost">
+						{{selectedItem.ResearchCost}}
+					</optional-section>
+					<optional-section title="Recipe: {{recipe.craftStation}} (x{{recipe.CraftedAmount}})" ng-repeat="recipe in selectedItem.Costs">
+						<!--p>"{{recipe.Hint}}"</p-->
+						<table class="recipeBlock">
+							<tr ng-repeat="i in recipe.CraftCost"><td><item-link item="i"></item-link></td><td>{{i.Amount}}</td></tr>
+						</table>
+					</optional-section>
+					<optional-section title="Research Materials" ng-if="selectedItem.ProjectItemRequirements.Requirement">
+						<table class="recipeBlock">
+							<tr ng-repeat="i in selectedItem.ProjectItemRequirements.Requirement">
+								<td><item-link item="i"></item-link>/td><td>{{i.Amount}}</td>
+							</tr>
+						</table>
+					</optional-section>
+			
+					<optional-section title="Scan Requirements" ng-if="selectedItem.ScanRequirements.length">
+						<ul><li ng-repeat="i in selectedItem.ScanRequirements">
+							<item-link item="i"></item-link>
+						</li></ul>
+					</optional-section>
+					<optional-section title="Research Requirements" ng-if="selectedItem._links.researchRequirement">
+						<ul>
+							<li ng-repeat="i in selectedItem._links.researchRequirement">
+							<item-link item="i"></item-link>
+							</li>
+						</ul>
+					</optional-section>	
+				<optional-section-group>
+			</div>
+			<div class="col-sm-4 infoColumn">
+				<optional-section-group title="Info">
+					<optional-section title="Description: " ng-if="selectedItem.Description">
+						{{selectedItem.Description | newline}}
+					</optional-section>
+					<optional-section title="Pre-research Description: " ng-if="selectedItem.PreDescription">	
+						{{selectedItem.PreDescription | newline}}
+					</optional-section>
+					<optional-section title="Post-research Description: " ng-if="selectedItem.PostDescription">
+						{{selectedItem.PostDescription | newline}}
+					</optional-section>
+					<optional-section title="Hint: " ng-if="selectedItem.Hint">
+						{{selectedItem.Hint | newline}}
+					</optional-section>
+				</optional-section-group>
+				</dl>
+			</div>
+			<div class="col-sm-4 outputColumn">
+				<optional-section-group title="Uses">
+					<optional-section title="Research Point Value: " ng-if="selectedItem.ResearchValue">
+						{{selectedItem.ResearchValue}}
+					</optional-section>
+					<optional-section title="UsedIn:" ng-if="selectedItem._links.ingredientFor.length">
+						<table class="recipeBlock">
+							<tr ng-repeat="i in selectedItem._links.ingredientFor">
+								<td><item-link item="i"></item-link></td><td>{{i.amount}}</td>
+							</tr>
+						</table>
+					</optional-section>
+					<optional-section title="Research Unlocks:" ng-if="selectedItem._links.researchRequirementFor">
+						<ul>
+							<li ng-repeat="i in selectedItem._links.researchRequirementFor">
+								<item-link item="i"></item-link><!--{{i.title}}-->
+							</li>
+						</ul>
+					</optional-section>
+					<optional-section title="Scan Unlocks:" ng-if="selectedItem._links.scanRequirementFor">
+						<ul>
+							<li ng-repeat="i in selectedItem._links.scanRequirementFor">
+								<item-link item="i"></item-link><!--{{i.title}}-->
+							</li>
+						</ul>
+					</optional-section>
+				</optional-section-group>
+			</div>
+		</div>
+		<!-- Column wide -->
+		<div class="panel panel-default">
+			<div class="panel-heading" role="tab" id="jsonPanel">
+				<h3 class="panel-title">
+					<button data-toggle="collapse" href="#rawJsonCollapse" aria-expanded="false" area-controls="rawJsonCollapse">Show JSON</button>
+				</h3>
+			</div>
+			<div class="collapse" id="rawJsonCollapse">
+				<div class="panel-body">
+					<pre>{{selectedItem | json}}</pre>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/nedb/browser-version/out/nedb.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="fceDatabase.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
