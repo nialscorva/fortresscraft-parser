@@ -3,7 +3,7 @@ angular.module('fortressCraftBrowserApp')
 .controller("searchController",["$scope","database",function($scope,database) {
 	$scope.recipes=[];
 	$scope.search={
-		term: "Laser Energy",
+		term: "",
 		recordType: {
 			recipe: true,
 			research: true,

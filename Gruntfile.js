@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 					uglify: true
 				},					
 	      src: 'html/index.html',
-	      dest: 'dist/fcedatabase.html'
+	      dest: 'dist/index.html'
 	    }
 	  }
 	});
