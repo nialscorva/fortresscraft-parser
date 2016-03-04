@@ -1,0 +1,29 @@
+,power,,,,conveyor,,logistics,,,smelter,,
+,maxPower,transferRate,maxDeliveryRate,desiredPower,carrySpeed,isFastConveyor,storage,debounce.normal,debounce.rush,smeltTime,burnRate,collectionRate
+Conveyor Belt,,,,,1,TRUE,,,,,,
+Conveyor Belt Filter,,,,,1,TRUE,,,,,,
+Transport Pipe,,,,,2,TRUE,,,,,,
+Transport Pipe Filter,,,,,2,TRUE,,,,,,
+Stamper Plant,,,,,0.15,FALSE,,,,,,
+Extrusion Plant,,,,,0.15,FALSE,,,,,,
+Coiler Plant,,,,,0.15,FALSE,,,,,,
+Pipe Extrusion Plant,,,,,0.15,FALSE,,,,,,
+PCB Assembling Plant,,,,,0.15,FALSE,,,,,,
+Conveyor Turntable,,,,,1,TRUE,,,,,,
+Basic Conveyor Belt,,,,,0.15,TRUE,,,,,,
+Advanced Conveyor Filter,,,,,2,TRUE,,,,,,
+Up Sloped Conveyor,,,,,1,TRUE,,,,,,
+Down Sloped Conveyor,,,,,1,TRUE,,,,,,
+Motorised Conveyor,,,,,4,TRUE,,,,,,
+Basic Ore Smelter,,,,,,,,,,30,1,1
+Ore Smelter,,,,,,,,,,15,1,1
+Forced Induction,,,,,,,,,,15,2,1
+MK2 Forced Induction,,,,,,,,,,15,3,1
+MK3 Forced Induction,,,,,,,,,,15,4,1
+MK4 Forced Induction,,,,,,,,,,15,4,2
+MK5 Forced Induction,,,,,,,,,,15,4,4
+CryoHopper,256,,500,256,,,50,0,0,,,
+LogisticsHopper,,,,,,,2,10,1,,,
+MiniHopper,,,,,,,10,30,3,,,
+StorageHopper,,,,,,,100,0,0,,,
+Jet Turbine Generator,3000,320,,,,,,,,,,

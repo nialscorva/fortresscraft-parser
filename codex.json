@@ -1,0 +1,40 @@
+{
+	"Jet Turbine Generator": {
+		"fuel": [
+			{
+				"name": "High Energy Composite Fuel",
+				"burnTime": 120,
+				"energyContent": 21875,
+				"powerPerSecond": 182.291672,
+				"note": "Power production is proportionate to RPM over max RPM (8000).  Easy power increases by 2.5x, rush increases by 5x."
+			}
+		]
+	},
+	"Macerator": {
+		"macerator": {
+			"oreTiers": {
+				"40": "Copper Ore",
+				"60": "Tin Ore",
+				"85": "Iron Ore",
+				"100": "Lithium Ore",
+				"120": "Titanium Ore",
+				"140": "Gold Ore",
+				"160": "Nickel Ore"
+			},
+			"inputs": {
+				"garbage" : {
+					"oreChance": 5,
+					"oreTier": 0
+				},
+				"Ore" : {
+					"oreChance": 25,
+					"oreTier": 75
+				},
+				"Machine" : {
+					"oreChance": 55,
+					"oreTier": 105
+				}
+			}				
+		}
+	}
+}

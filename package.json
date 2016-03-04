@@ -7,6 +7,11 @@
     "xml2js": "^0.4.16"
   },
   "devDependencies": {
+    "bower": "^1.7.7",
+    "csv-parse": "^1.0.2",
+    "grunt": "^0.4.5",
+    "grunt-exec": "^0.4.6",
+    "grunt-inline": "^0.3.6",
     "handlebars": "^4.0.5"
   },
   "scripts": {

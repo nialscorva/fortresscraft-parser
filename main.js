@@ -14,16 +14,20 @@ var writeJson=require("./lib/jsonWriter.js");
 //	})
 var readXml=require("./lib/dataXmlReader.js");
 var linkData=require("./lib/dataLinker.js");
+var enrichData=require("./lib/dataEnricher.js");
 var Database=require("./lib/database.js");
 
 var db=new Database();
 
 readXml(db,"./xmlFiles")
 	.then(function() {
-		linkData(db);
+		return Promise.all([
+			linkData(db),
+			enrichData(db)
+		]);
 	})
 	.then(function() {
-		writeJson(db,{outputDir: "html/"});
+		return writeJson(db,{outputDir: "html/"});
 	})
 	.catch(function(err) {
 		console.error("Failed due to ",err,err.stack);

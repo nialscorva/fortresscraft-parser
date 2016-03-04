@@ -4,3 +4,4 @@ xmlfiles/*.meta
 *.png
 node_modules
 xmlfiles/GenericAutoCrafter/
+/dist

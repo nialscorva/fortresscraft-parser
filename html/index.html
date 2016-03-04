@@ -16,37 +16,57 @@
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
-<body ng-controller="appController">
-	<div class="col-sm-3 searchPanel pageHeight">
-		<div ng-controller="searchController" class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Search</h3>
-				</div>
-			 <div class="panel-body">
+<body ng-controller="appController" class="container-fluid">
+	<div class="sidebar">
+		<div class="sidebar-column" ng-controller="searchController">
+			<h3>Search</h3>
+			<div class="searchOptions">
 				<input type="text" ng-change="runSearch(searchTerm)" ng-model="search.term" placeholder="Search Term">
 				<br>
-				<label><input type="checkbox" ng-model="search.recipes">Recipes</label>
-				<label><input type="checkbox" ng-model="search.research">Research</label>
-				<label><input type="checkbox" ng-model="search.terrain">Terrain</label>
-				<br>
-				<button ng-click="runSearch('Laser Energy Transmitter')">LET</button>
-				<p>{{resultsMessage}}</p>
-				<div class="searchResultsArea pageHeight">
-					<div>
-						<div ng-repeat="r in recipes">
-							<a href="#{{r._id}}" ng-click="setSelected(r)" data-toggle="tooltip" data-placement="right" title="{{r.description}}">{{r.displayName}} <type-badge item="r"></type-badge></a>
-							<!--p>{{r.Description}}</p-->
-						</div>
-					</div>
+				<label ng-repeat="(k,v) in search.recordType">
+					<input type="checkbox" ng-model="search.recordType[k]">{{k | capitalize}}
+				</label>
+				<table>
+				<tr ng-repeat="(facet,options) in facets">
+					<td><h4>{{facet | capitalize}}</h4></td><td>
+					<select multiple="true" ng-model="search[facet]">
+						<option ng-repeat="(facetName,count) in options" value="{{facetName}}">{{facetName}}({{facetCount[facet][facetName]}})</option>
+					</select>
+				</td></tr>
+				<!--tr ng-if="categories.length"><td><h4>Categories</h4></td>
+				<td>
+					<select multiple="true" ng-model="search.categories" ng-options="c.name+' ('+c.count+')' for c in categories track by c.name">
+					</select>
+				</td></tr>
+				<tr ng-if="tags.length"><td><h4>Tags</h4></td>
+				<td>
+					<select multiple="true" ng-model="search.tags" ng-options="c.name+' ('+c.count+')' for c in tags track by c.name">
+					</select>
+				</td></tr-->
+				</table>
+			</div>
+			<div class="searchResultsArea">
+				<div ng-repeat="r in recipes">
+					<a href="#{{r._id}}" ng-click="setSelected(r)" 
+						data-toggle="tooltip" 
+						data-placement="right" 
+						title="{{r.description}}">{{r.displayName}} 
+						<type-badge item="r"></type-badge>
+					</a>
+						<!--p>{{r.Description}}</p-->
 				</div>
 			</div>
+			<p>{{resultsMessage}}</p>
 		</div>
 	</div>
 	
-	<div class="col-sm-9" ng-if="selectedItem">
+	<div class="container-fluid  main-column" ng-if="selectedItem">
 		<div class="row">
-			<h1>{{selectedItem.displayName}}<small><type-badge item="selectedItem"></type-badge><tag-badge item="selectedItem"></tag-badge></small></h1>
-
+			<h1 class="text-center">{{selectedItem.displayName}}</h1>
+			<div class="center-block text-center">
+				<type-badge item="selectedItem" class="title-label"></type-badge>
+				<tag-badge item="selectedItem" class="title-label"></tag-badge>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-4 inputColumn">
@@ -128,7 +148,7 @@
 				</optional-section-group>
 			</div>
 		</div>
-		<!-- Column wide -->
+		<!-- Footer -->
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="jsonPanel">
 				<h3 class="panel-title">
@@ -149,6 +169,13 @@
 	<script src="bower_components/nedb/browser-version/out/nedb.js"></script>
 	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="fceDatabase.js"></script>
-  <script src="app.js"></script>
+
+  <script src="js/app.js"></script>
+  <script src="js/databaseService.js"></script>
+	
+  <script src="js/directives.js"></script>
+  <script src="js/searchController.js"></script>
+	<script src="js/appController.js"></script>
+
 </body>
 </html>
