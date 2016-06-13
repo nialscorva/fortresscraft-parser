@@ -5,3 +5,4 @@ xmlfiles/*.meta
 node_modules
 xmlfiles/GenericAutoCrafter/
 /dist
+/nbproject/private/
